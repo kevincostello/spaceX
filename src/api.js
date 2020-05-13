@@ -18,11 +18,11 @@ export const getRandomLaunch = (flight_number) => {
   });
 };
 
-export const getAllLaunches = (sort, order) => {
-  return request
-    .get(`/launches`, { params: { sort, order } })
-    .then(({ data }) => {
-      console.dir(data);
-      return data;
-    });
+export const getAllLaunches = (params) => {
+  console.log(params);
+
+  return request.get(`/launches`, { params }).then(({ data }) => {
+    console.dir(data);
+    return data;
+  });
 };

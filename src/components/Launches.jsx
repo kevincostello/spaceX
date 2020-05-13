@@ -3,7 +3,7 @@ import * as api from "../api";
 import LaunchCard from "./LaunchCard";
 
 export default class Launches extends Component {
-  state = { launches: [], isLoading: true, sortedDesc: false };
+  state = { launches: [], isLoading: true, sortedDesc: false, launch_year: "" };
   render() {
     const { isLoading, launches, sortedDesc } = this.state;
     console.log(launches);
@@ -17,6 +17,17 @@ export default class Launches extends Component {
         <button onClick={this.sortLaunches} name={"mission_name"}>
           Sort by mission name
         </button>
+        <form action="" onSubmit={this.handleSubmit}>
+          <label htmlFor="">
+            Search by Launch Year:
+            <input
+              type="text"
+              onChange={this.handleChange}
+              name={"launch_year"}
+            />
+          </label>
+          <button>Search</button>
+        </form>
         <ul>
           {launches.map((launch) => {
             return <LaunchCard key={launch.flight_number} {...launch} />;
@@ -46,12 +57,29 @@ export default class Launches extends Component {
     const { name } = event.target;
     let order = "asc";
     if (!sortedDesc) order = "desc";
-    console.log("order: ", order, sortedDesc);
+    const params = { sort: name, order };
 
-    api.getAllLaunches(name, order).then((launches) => {
+    api.getAllLaunches(params).then((launches) => {
       this.setState((currentState) => {
         return { launches, sortedDesc: !currentState.sortedDesc };
       });
+    });
+  };
+
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+    console.log(name, value);
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const { launch_year } = this.state;
+    console.log(launch_year);
+
+    const params = { launch_year };
+    api.getAllLaunches(params).then((launches) => {
+      this.setState({ launches });
     });
   };
 }
