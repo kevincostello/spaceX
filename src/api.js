@@ -26,3 +26,12 @@ export const getAllLaunches = (params) => {
     return data;
   });
 };
+
+export const getAllMissions = (params) => {
+  console.log(params);
+
+  return request.get(`/missions`, { params }).then(({ data }) => {
+    console.dir(data);
+    return data;
+  });
+};

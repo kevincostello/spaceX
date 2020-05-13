@@ -11,6 +11,9 @@ function Nav() {
         <li>
           <Link to="/launches">Launches</Link>
         </li>
+        <li>
+          <Link to="/missions">Missions</Link>
+        </li>
       </ul>
     </nav>
   );

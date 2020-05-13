@@ -4,6 +4,7 @@ import { Router } from "@reach/router";
 import Nav from "./components/Nav";
 import Home from "./components/Home";
 import Launches from "./components/Launches";
+import Missions from "./components/Missions";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Router>
         <Home path="/" />
         <Launches path="/launches" />
+        <Missions path="/missions" />
       </Router>
     </div>
   );
