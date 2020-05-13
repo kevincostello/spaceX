@@ -4,10 +4,10 @@ import * as api from "../api";
 class Home extends Component {
   state = {
     max_flight_number: "",
-    flight_number: 65,
-    mission_name: "Telstar 19V",
-    launch_date: "2018-07-22T05:50:00.000Z",
-    picture: "https://images2.imgbox.com/12/7c/NiniYxoh_o.png",
+    flight_number: "",
+    mission_name: "",
+    launch_date: "",
+    picture: "",
     isLoading: true,
   };
   render() {
@@ -38,14 +38,28 @@ class Home extends Component {
   }
 
   fetchLatestLaunch = () => {
-    const { max_flight_number } = this.state;
     api
       .getLatestLaunch()
       .then((flight_number) => {
-        this.setState({ max_flight_number: flight_number });
+        console.log("flight number is: ", flight_number);
+
+        this.setState({ max_flight_number: flight_number, isLoading: false });
+        return flight_number;
       })
-      .then(() => {
-        api.getRandomLaunch(max_flight_number);
+      .then((flight_number) => {
+        const { max_flight_number } = this.state;
+        console.log("Max flight number is: ", max_flight_number);
+
+        api
+          .getRandomLaunch(max_flight_number)
+          .then(({ flight_number, mission_name, launch_date_utc, links }) => {
+            this.setState({
+              flight_number,
+              mission_name,
+              launch_date: launch_date_utc,
+              picture: links.mission_patch_small,
+            });
+          });
       });
   };
 

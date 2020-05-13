@@ -6,16 +6,23 @@ const request = axios.create({
 
 export const getLatestLaunch = () => {
   return request.get("/launches/latest").then(({ data }) => {
-    console.dir(data);
-    return data.flight_number;
+    const random_flight_number = Math.ceil(Math.random() * data.flight_number);
+
+    return random_flight_number;
   });
 };
 
 export const getRandomLaunch = (flight_number) => {
-  return request.get(`/launches/${flight_number}`).then((data) => {
-    console.dir(data);
+  return request.get(`/launches/${flight_number}`).then(({ data }) => {
+    return data;
   });
-  // .catch((err) => {
-  //   console.log(err);
-  // });
+};
+
+export const getAllLaunches = (sort, order) => {
+  return request
+    .get(`/launches`, { params: { sort, order } })
+    .then(({ data }) => {
+      console.dir(data);
+      return data;
+    });
 };
