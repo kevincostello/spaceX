@@ -11,7 +11,12 @@ export default class Launches extends Component {
     return (
       <main>
         <h2>Launch Information</h2>
-        <button onClick={this.sortLaunches}>Sort by launch date</button>
+        <button onClick={this.sortLaunches} name={"launch_date_utc"}>
+          Sort by launch date
+        </button>
+        <button onClick={this.sortLaunches} name={"mission_name"}>
+          Sort by mission name
+        </button>
         <ul>
           {launches.map((launch) => {
             return <LaunchCard key={launch.flight_number} {...launch} />;
@@ -36,13 +41,14 @@ export default class Launches extends Component {
     });
   };
 
-  sortLaunches = () => {
+  sortLaunches = (event) => {
     const { sortedDesc } = this.state;
+    const { name } = event.target;
     let order = "asc";
     if (!sortedDesc) order = "desc";
     console.log("order: ", order, sortedDesc);
 
-    api.getAllLaunches("launch_date_utc", order).then((launches) => {
+    api.getAllLaunches(name, order).then((launches) => {
       this.setState((currentState) => {
         return { launches, sortedDesc: !currentState.sortedDesc };
       });
