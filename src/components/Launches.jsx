@@ -5,7 +5,7 @@ import LaunchCard from "./LaunchCard";
 export default class Launches extends Component {
   state = { launches: [], isLoading: true, sortedDesc: false, launch_year: "" };
   render() {
-    const { isLoading, launches, sortedDesc } = this.state;
+    const { isLoading, launches } = this.state;
     console.log(launches);
     if (isLoading) return <h2>Loading all the launches in 3....2...1......</h2>;
     return (
@@ -26,6 +26,11 @@ export default class Launches extends Component {
               name={"launch_year"}
             />
           </label>
+          <label htmlFor="">
+            limit results:
+            <input type="number" onChange={this.handleChange} name={"limit"} />
+          </label>
+
           <button>Search</button>
         </form>
         <ul>
@@ -74,10 +79,10 @@ export default class Launches extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { launch_year } = this.state;
+    const { launch_year, limit } = this.state;
     console.log(launch_year);
 
-    const params = { launch_year };
+    const params = { launch_year, limit };
     api.getAllLaunches(params).then((launches) => {
       this.setState({ launches });
     });
