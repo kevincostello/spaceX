@@ -47,3 +47,9 @@ export const getAllCapsules = () => {
     return data;
   });
 };
+
+export const getAllShips = () => {
+  return request.get(`/ships`).then(({ data }) => {
+    return data;
+  });
+};

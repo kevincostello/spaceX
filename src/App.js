@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Launches from "./components/Launches";
 import Missions from "./components/Missions";
 import Capsules from "./components/Capsules";
+import Ships from "./components/Ships";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Launches path="/launches" />
         <Missions path="/missions" />
         <Capsules path="/capsules" />
+        <Ships path="/ships" />
       </Router>
     </div>
   );
