@@ -35,3 +35,15 @@ export const getAllMissions = (params) => {
     return data;
   });
 };
+
+export const getAllCapsules = () => {
+  // return request.get(`/capsules`, { params }).then(({ data }) => {
+  //   console.dir(data);
+  //   return data;
+  // });
+
+  return request.get(`/capsules`).then(({ data }) => {
+    console.dir(data);
+    return data;
+  });
+};

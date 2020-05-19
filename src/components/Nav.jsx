@@ -14,6 +14,9 @@ function Nav() {
         <li>
           <Link to="/missions">Missions</Link>
         </li>
+        <li>
+          <Link to="/capsules">Capsules</Link>
+        </li>
       </ul>
     </nav>
   );
